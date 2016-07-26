@@ -1,8 +1,8 @@
 # Phone Server
-## Easily access files from your computer or android phone via simpleHTTPServer
+## Easily access files from your computer or android android via simpleHTTPServer
 ### Uses Kivy and simpleHTTPServer
 
-Easily browse files on your android phone via webbrowser.  
+Easily browse files on your android device via webbrowser.  
 `Download and install PhoneServer-0.12-debug.apk from the bin/ folder`  
 `Start app`  
 `Select folder you would like to serve`  
