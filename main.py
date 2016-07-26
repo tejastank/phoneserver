@@ -15,8 +15,6 @@ from kivy.network.urlrequest import UrlRequest
 import socket
 from socket import SOL_SOCKET,SO_REUSEADDR
 
-
-
 import SimpleHTTPServer
 import SocketServer
 import threading
@@ -24,22 +22,24 @@ import webbrowser
 import platform
 import os
 
+class MyTCPServer(SocketServer.TCPServer):
+    allow_reuse_address = True
+
 class Server(object):
     def __init__(self):
+        super(Server, self).__init__()
         self.ip = self.ip()
         self.port = self.port()
         self.thread = None
 
-        self.httpd = SocketServer.TCPServer((self.ip, self.port), SimpleHTTPServer.SimpleHTTPRequestHandler)
+        self.httpd = MyTCPServer((self.ip, self.port), SimpleHTTPServer.SimpleHTTPRequestHandler)
         self.httpd.socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
         self.run = False
         self.url = 'http://{0}:{1}'.format(self.ip, self.port)
 
     def start(self):
-        print 'serving on', self.url
         self.run = True
-
         self.thread = threading.Thread(target = self._serve)
         self.thread.start()
 
@@ -61,14 +61,19 @@ class Server(object):
 
     def ip(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(('google.com', 0))
-        return s.getsockname()[0]
+        try:
+            s.connect(('google.com', 0))
+            ip = s.getsockname()[0]
+        except socket.gaierror:
+            ip = 'localhost'
+        return ip
 
     def port(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         for port in range(8000, 8080):
-            if sock.connect_ex(('127.0.0.1', port)) != 0:
+            if sock.connect_ex((self.ip, port)) != 0:
                 return port
+
 
 class Page1(BoxLayout):
     def __init__(self, **kwargs):
@@ -135,17 +140,34 @@ class Page2(BoxLayout):
 class PhoneServer(PageLayout):
     def __init__(self,**kwargs):
         super(PhoneServer, self).__init__(**kwargs)
-        self.pathtoserver = '/'
-
         self.page1 = Page1(orientation='vertical')
         self.page2 = Page2(orientation='vertical')
         self.add_widget(self.page1)
         self.add_widget(self.page2)
 
-
 class MyApp(App):
+    def __init__(self, *args, **kwargs):
+        super(MyApp, self).__init__(*args, **kwargs)
+        self.ps = PhoneServer()
+        self.sleeping = False
+
     def build(self):
-        return PhoneServer()
+        return self.ps
+
+    def on_pause(self):
+        print 'PAUSING'
+        return True
+
+    def on_stop(self):
+        print 'STOPPING'
+        self.ps.page1.server.stop()
+
+    def on_start(self):
+        print 'STARTING'
+
+    def on_resume(self):
+        print 'RESUMING'
+        pass
 
 if __name__ == "__main__":
     MyApp().run()
