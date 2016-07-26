@@ -1,5 +1,5 @@
 # Phone Server
-## Easily access files from your computer or android android via simpleHTTPServer
+## Easily access files from your computer or android device via simpleHTTPServer
 ### Uses Kivy and simpleHTTPServer
 
 Easily browse files on your android device via webbrowser.  
