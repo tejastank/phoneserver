@@ -3,7 +3,7 @@
 ### Uses Kivy and simpleHTTPServer
 
 Easily browse files on your android phone via webbrowser.  
-`Download and install PhoneServer-0.1-debug.apk from the bin/ folder`  
+`Download and install PhoneServer-0.12-debug.apk from the bin/ folder`  
 `Start app`  
 `Select folder you would like to serve`  
 `Start server`  
