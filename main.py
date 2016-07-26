@@ -155,18 +155,15 @@ class MyApp(App):
         return self.ps
 
     def on_pause(self):
-        print 'PAUSING'
         return True
 
     def on_stop(self):
-        print 'STOPPING'
         self.ps.page1.server.stop()
 
     def on_start(self):
-        print 'STARTING'
+        pass
 
     def on_resume(self):
-        print 'RESUMING'
         pass
 
 if __name__ == "__main__":
