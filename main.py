@@ -10,18 +10,22 @@ from kivy.uix.filechooser import FileChooserIconView
 
 from kivy.graphics import Color, Rectangle
 
+from kivy.network.urlrequest import UrlRequest
+
 import socket
+from socket import SOL_SOCKET,SO_REUSEADDR
+
+
 
 import SimpleHTTPServer
 import SocketServer
 import threading
 import webbrowser
 import platform
-from socket import SOL_SOCKET,SO_REUSEADDR
 import os
 
 class Server(object):
-    def __init__(self,port=8000):
+    def __init__(self):
         self.ip = self.ip()
         self.port = self.port()
         self.thread = None
@@ -46,6 +50,8 @@ class Server(object):
 
     def stop(self):
         self.run = False
+        # send last request so _serve exits properly
+        UrlRequest(self.url)
 
     def start2run(self, event):
         if event.state == 'down':
