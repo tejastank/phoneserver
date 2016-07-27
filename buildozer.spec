@@ -46,10 +46,10 @@ requirements = kivy
 #garden_requirements =
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/phoneserver.png
+presplash.filename = %(source.dir)s/phoneserver_512x512.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/phoneserver.png
+icon.filename = %(source.dir)s/phoneserver_256x256.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
 orientation = landscape
