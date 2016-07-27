@@ -146,6 +146,8 @@ class PhoneServer(PageLayout):
         self.add_widget(self.page2)
 
 class MyApp(App):
+    icon = "PhoneServer.png"
+    title = "Phone Server"
     def __init__(self, *args, **kwargs):
         super(MyApp, self).__init__(*args, **kwargs)
         self.ps = PhoneServer()

@@ -2,6 +2,9 @@
 ## Easily access files from your computer or android device via simpleHTTPServer
 ### Uses Kivy and simpleHTTPServer
 
+Thanks to:
+  * Freepik from www.flaticon.com for the icon
+
 Easily browse files on your android device via webbrowser.  
 `Download and install PhoneServer-0.12-debug.apk from the bin/ folder`  
 `Start app`  
